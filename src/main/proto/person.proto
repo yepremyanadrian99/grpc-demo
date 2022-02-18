@@ -5,8 +5,13 @@ option java_package = "am.adrian.grpcdemo.model";
 
 import "common/car.proto";
 import "common/address.proto";
+import "google/protobuf/wrappers.proto";
 
 message Person {
+  // Regarding field numbers, use values from 1 to 15 on most frequently used fields,
+  // as fields with those numbers are encoded with their type in only 1 Byte,
+  // and so you gain some more performance using those fields, compared to those
+  // between 16 and 2047, which take 2 Bytes to be encoded, and more is worse...
   string name = 1;
   string surname = 2;
   int32 age = 3;

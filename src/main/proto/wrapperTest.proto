@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "am.adrian.grpcdemo.model";
+
+import "common/car.proto";
+import "common/address.proto";
+import "google/protobuf/wrappers.proto";
+
+message WrapperTest {
+  google.protobuf.Int32Value age = 3;
+}
