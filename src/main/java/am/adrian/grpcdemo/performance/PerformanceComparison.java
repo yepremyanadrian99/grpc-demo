@@ -1,7 +1,7 @@
 package am.adrian.grpcdemo.performance;
 
 import am.adrian.grpcdemo.model.Person;
-import am.adrian.grpcdemo.performance.json.JsonPerson;
+import am.adrian.grpcdemo.performance.model.JsonPerson;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.InvalidProtocolBufferException;
 
@@ -22,7 +22,7 @@ public class PerformanceComparison implements Runnable {
         Runnable jsonRunnable = () -> {
             try {
                 byte[] bytes = objectMapper.writeValueAsBytes(jsonPerson);
-                JsonPerson deserializedPerson = objectMapper.readValue(bytes, JsonPerson.class);
+                objectMapper.readValue(bytes, JsonPerson.class);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -38,19 +38,19 @@ public class PerformanceComparison implements Runnable {
         Runnable protoRunnable = () -> {
             byte[] bytes = person.toByteArray();
             try {
-                Person deserializedPerson = Person.parseFrom(bytes);
+                Person.parseFrom(bytes);
             } catch (InvalidProtocolBufferException e) {
                 e.printStackTrace();
             }
         };
 
-        runPerformanceTest(protoRunnable, "PROTO");
         runPerformanceTest(jsonRunnable, "JSON");
+        runPerformanceTest(protoRunnable, "PROTO");
     }
 
     private static void runPerformanceTest(Runnable runnable, String method) {
         LongSummaryStatistics statistics = new LongSummaryStatistics();
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 0; i < 20; ++i) {
             long startTime = System.currentTimeMillis();
             for (int j = 0; j < 1_000_000; ++j) {
                 runnable.run();

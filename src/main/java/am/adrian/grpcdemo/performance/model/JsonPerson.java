@@ -1,4 +1,4 @@
-package am.adrian.grpcdemo.performance.json;
+package am.adrian.grpcdemo.performance.model;
 
 import lombok.Getter;
 import lombok.Setter;
