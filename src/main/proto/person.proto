@@ -3,8 +3,13 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "am.adrian.grpcdemo.model";
 
+import "common/car.proto";
+import "common/address.proto";
+
 message Person {
   string name = 1;
   string surname = 2;
   int32 age = 3;
+  map<string, common.Address> addresses = 4;
+  repeated common.Car cars = 5;
 }

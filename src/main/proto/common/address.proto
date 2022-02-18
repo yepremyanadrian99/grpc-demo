@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package common;
+
+option java_multiple_files = true;
+option java_package = "am.adrian.grpcdemo.model";
+
+message Address {
+  string country = 1;
+  string city = 2;
+  string street = 3;
+  int32 house = 4;
+}
